@@ -1,26 +1,203 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #0F172A;
+  --color-foreground: #F8FAFC;
+  --color-foreground-muted: #94A3B8;
+  --color-card-bg: rgba(255, 255, 255, 0.05);
+  --color-card-border: rgba(255, 255, 255, 0.1);
+  --color-accent-indigo: #6366F1;
+  --color-accent-violet: #8B5CF6;
+  --color-accent-purple: #A855F7;
+  --color-surface: #1E293B;
+  --color-surface-light: #334155;
+  --font-heading: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ─────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+::selection {
+  background: var(--color-accent-violet);
+  color: #fff;
+}
+
+/* ── Custom Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-violet);
+}
+
+/* ── Utility: gradient text ───────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-violet), var(--color-accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Utility: glassmorphism card ──────────────────── */
+.glass-card {
+  background: var(--color-card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-card-border);
+  border-radius: 1rem;
+}
+
+.glass-card-hover {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.12);
+  transform: translateY(-4px);
+}
+
+/* ── Utility: glow button ─────────────────────────── */
+.btn-glow {
+  position: relative;
+  background: linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-violet));
+  color: #fff;
+  padding: 0.875rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  position: relative;
+  background: transparent;
+  color: var(--color-foreground);
+  padding: 0.875rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-card-border);
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-accent-violet);
+  color: var(--color-accent-violet);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+/* ── Section spacing ──────────────────────────────── */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+/* ── Animated gradient orbs ───────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ── Gradient orbs ────────────────────────────────── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: rgba(99, 102, 241, 0.15);
+  top: -100px;
+  right: -100px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 300px;
+  height: 300px;
+  background: rgba(168, 85, 247, 0.12);
+  bottom: -80px;
+  left: -80px;
+  animation: float 10s ease-in-out 3s infinite;
+}
+
+.orb-3 {
+  width: 250px;
+  height: 250px;
+  background: rgba(139, 92, 246, 0.1);
+  top: 40%;
+  left: 30%;
+  animation: float 12s ease-in-out 5s infinite;
+}
+
+/* ── Navbar ───────────────────────────────────────── */
+.navbar-glass {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Timeline connector line ──────────────────────── */
+.timeline-line {
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent-indigo), var(--color-accent-violet), var(--color-accent-purple));
 }
