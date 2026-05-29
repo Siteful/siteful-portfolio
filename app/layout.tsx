@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,9 +16,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "SITEFUL — Crafting Modern Digital Experiences",
+  title: "SITEFUL — Building Digital Presence That Drives Growth",
   description:
-    "Siteful Studio is a professional web development studio specializing in modern websites for businesses, startups, and UMKM. We build high-performance, beautiful digital experiences.",
+    "Siteful is a professional web development studio helping businesses, startups, and UMKM build modern, fast, and impactful websites that convert visitors into customers.",
   keywords: [
     "web development",
     "digital agency",
@@ -25,14 +26,26 @@ export const metadata: Metadata = {
     "startup",
     "UI/UX design",
     "SITEFUL",
+    "UMKM",
   ],
   openGraph: {
-    title: "SITEFUL — Crafting Modern Digital Experiences",
+    title: "SITEFUL — Building Digital Presence That Drives Growth",
     description:
-      "Professional web development studio specializing in modern websites for businesses, startups, and UMKM.",
+      "Professional web development studio helping businesses build modern, fast, and impactful websites.",
     type: "website",
   },
 };
+
+// Inline script to prevent FOUC (Flash of Unstyled Content)
+// Runs before React hydration to set the correct theme immediately
+const themeScript = `
+  (function() {
+    try {
+      var theme = localStorage.getItem('siteful-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch(e) {}
+  })();
+`;
 
 export default function RootLayout({
   children,
@@ -42,13 +55,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="dark"
       className={`${inter.variable} ${manrope.variable} antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
         className="min-h-screen"
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

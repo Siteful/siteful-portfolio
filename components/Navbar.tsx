@@ -2,20 +2,23 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import Image from "next/image";
+import { useTheme } from "@/components/ThemeProvider";
 
 const navLinks = [
   { label: "About", href: "#about" },
+  { label: "Team", href: "#team" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
   { label: "Workflow", href: "#workflow" },
   { label: "Testimonials", href: "#testimonials" },
-  { label: "Team", href: "#team" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -24,92 +27,94 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   return (
     <>
-      <motion.nav
+      <motion.header
         initial={{ y: -80 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "navbar-glass shadow-lg" : "bg-transparent"
+          scrolled ? "nav-glass" : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-indigo to-accent-purple flex items-center justify-center font-bold text-sm text-white">
-              S
-            </div>
-            <span
-              className="text-xl font-bold tracking-tight"
-              style={{ fontFamily: "var(--font-manrope)" }}
-            >
-              SITE<span className="gradient-text">FUL</span>
+          <a href="#" className="flex items-center gap-2.5">
+            <Image src="/logo-icon.png" alt="Siteful" width={32} height={32} className="rounded-lg" />
+            <span className="text-lg font-bold tracking-tight" style={{ fontFamily: "var(--font-manrope)" }}>
+              SITEFUL
             </span>
           </a>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-foreground-muted hover:text-foreground transition-colors duration-200 relative group"
+                className="text-[13px] text-foreground-muted hover:text-foreground transition-colors duration-200"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-indigo to-accent-purple transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
-            <a href="#contact" className="btn-glow text-sm py-2.5 px-5">
-              Start Your Project
-            </a>
-          </div>
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle"
+              aria-label="Toggle theme"
+            >
+              <span className="theme-toggle-knob">
+                {theme === "dark" ? <Moon size={10} className="text-white" /> : <Sun size={10} className="text-white" />}
+              </span>
+            </button>
 
-          {/* Mobile Hamburger */}
+            <a href="#contact" className="btn-primary text-[13px] py-2 px-5">
+              Start a Project
+            </a>
+          </nav>
+
+          {/* Mobile */}
           <button
             className="md:hidden text-foreground-muted hover:text-foreground transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </motion.nav>
+      </motion.header>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 md:hidden"
           >
-            <div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-              onClick={() => setMobileOpen(false)}
-            />
-            <div className="absolute top-0 right-0 w-72 h-full bg-surface border-l border-card-border flex flex-col pt-24 px-6 gap-2">
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="absolute top-0 right-0 w-[280px] h-full bg-background border-l border-border-light flex flex-col pt-20 px-6"
+            >
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  className="text-foreground-muted hover:text-foreground py-3 text-lg transition-colors border-b border-card-border"
+                  transition={{ delay: i * 0.05 }}
+                  className="text-foreground-muted hover:text-foreground py-3.5 text-[15px] transition-colors border-b border-border-light"
                 >
                   {link.label}
                 </motion.a>
@@ -117,14 +122,24 @@ export default function Navbar() {
               <motion.a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="btn-glow text-center mt-4"
+                transition={{ delay: 0.3 }}
+                className="btn-primary text-center mt-6 justify-center"
               >
-                Start Your Project
+                Start a Project
               </motion.a>
-            </div>
+
+              {/* Mobile theme toggle */}
+              <div className="flex items-center justify-between mt-6 pt-4 border-t border-border-light">
+                <span className="text-foreground-muted text-sm">Theme</span>
+                <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme">
+                  <span className="theme-toggle-knob">
+                    {theme === "dark" ? <Moon size={10} className="text-white" /> : <Sun size={10} className="text-white" />}
+                  </span>
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

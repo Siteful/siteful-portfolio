@@ -1,166 +1,152 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Layout,
-  Code2,
-  Sparkles,
-} from "lucide-react";
-
-const floatingCards = [
-  {
-    icon: <Layout size={18} />,
-    title: "Dashboard UI",
-    desc: "Analytics & Metrics",
-    color: "from-indigo-500/20 to-violet-500/20",
-    delay: 0,
-    pos: "top-24 right-8 md:top-32 md:right-16 lg:right-24",
-  },
-  {
-    icon: <Code2 size={18} />,
-    title: "Clean Code",
-    desc: "Modern Stack",
-    color: "from-purple-500/20 to-pink-500/20",
-    delay: 1,
-    pos: "top-48 right-2 md:top-56 md:right-4 lg:right-8",
-  },
-  {
-    icon: <Sparkles size={18} />,
-    title: "Pixel Perfect",
-    desc: "UI/UX Design",
-    color: "from-violet-500/20 to-indigo-500/20",
-    delay: 2,
-    pos: "top-72 right-12 md:top-80 md:right-20 lg:right-32",
-  },
-];
+import { ArrowRight, Monitor, Smartphone, BarChart3 } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
-    >
-      {/* Background orbs */}
-      <div className="orb orb-1" />
-      <div className="orb orb-2" />
-      <div className="orb orb-3" />
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Subtle background glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/8 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 w-full pt-28 pb-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Text content */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs text-foreground-muted mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+      <div className="max-w-6xl mx-auto px-6 w-full pt-32 pb-24 relative z-10">
+        <div className="max-w-3xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="badge">
+              <span className="w-1.5 h-1.5 rounded-full bg-success" />
               Available for new projects
-            </motion.div>
+            </span>
+          </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
-              style={{ fontFamily: "var(--font-manrope)" }}
-            >
-              Crafting Modern{" "}
-              <span className="gradient-text">Digital Experiences</span>
-            </motion.h1>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.12] tracking-tight mt-7 mb-6"
+            style={{ fontFamily: "var(--font-manrope)" }}
+          >
+            Building Digital Presence{" "}
+            <span className="text-gradient">That Drives Growth</span>
+          </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-foreground-muted text-base sm:text-lg max-w-xl leading-relaxed mb-10"
-            >
-              Siteful Studio helps businesses, startups, and UMKM build modern,
-              professional, and impactful websites that drive growth and
-              establish digital presence.
-            </motion.p>
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-foreground-muted text-base sm:text-lg leading-relaxed max-w-xl mb-10"
+          >
+            We help businesses, startups, and organizations build modern websites
+            that look professional, perform fast, and convert visitors into
+            customers.
+          </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35 }}
-              className="flex flex-wrap gap-4"
-            >
-              <a href="#projects" className="btn-glow inline-flex items-center gap-2">
-                View Projects
-                <ArrowRight size={16} />
-              </a>
-              <a href="#contact" className="btn-outline inline-flex items-center gap-2">
-                Start Your Project
-              </a>
-            </motion.div>
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap gap-3"
+          >
+            <a href="#projects" className="btn-primary">
+              View Projects <ArrowRight size={15} />
+            </a>
+            <a href="#contact" className="btn-secondary">
+              Start Your Project
+            </a>
+          </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="flex gap-10 mt-14"
-            >
-              {[
-                { value: "50+", label: "Projects" },
-                { value: "30+", label: "Clients" },
-                { value: "99%", label: "Satisfaction" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div
-                    className="text-2xl sm:text-3xl font-bold gradient-text"
-                    style={{ fontFamily: "var(--font-manrope)" }}
-                  >
-                    {stat.value}
-                  </div>
-                  <div className="text-foreground-muted text-sm mt-1">
-                    {stat.label}
-                  </div>
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            className="flex gap-10 mt-16 pt-8 border-t border-border-light"
+          >
+            {[
+              { value: "50+", label: "Projects Delivered" },
+              { value: "30+", label: "Happy Clients" },
+              { value: "99%", label: "Client Satisfaction" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-2xl font-bold text-foreground" style={{ fontFamily: "var(--font-manrope)" }}>
+                  {stat.value}
                 </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right: Floating UI Cards */}
-          <div className="hidden lg:block relative h-[500px]">
-            {floatingCards.map((card, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 + card.delay * 0.15 }}
-                className={`absolute ${card.pos} animate-float${
-                  card.delay === 1 ? "-delayed" : card.delay === 2 ? "-delayed" : ""
-                }`}
-                style={{
-                  animationDelay: `${card.delay * 1.5}s`,
-                }}
-              >
-                <div className="glass-card p-5 min-w-[200px] hover:border-accent-violet/40 transition-all duration-300 cursor-default">
-                  <div
-                    className={`w-10 h-10 rounded-lg bg-gradient-to-br ${card.color} flex items-center justify-center text-foreground mb-3`}
-                  >
-                    {card.icon}
-                  </div>
-                  <div className="font-semibold text-sm mb-1">{card.title}</div>
-                  <div className="text-foreground-muted text-xs">
-                    {card.desc}
-                  </div>
-                </div>
-              </motion.div>
+                <div className="text-foreground-subtle text-xs mt-1">{stat.label}</div>
+              </div>
             ))}
-
-            {/* Extra decorative orb behind cards */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent-violet/10 rounded-full blur-[100px] animate-pulse-glow" />
-          </div>
+          </motion.div>
         </div>
+
+        {/* Right: Floating visual elements */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="hidden lg:block absolute top-32 right-0 w-[380px]"
+        >
+          {/* Card 1 */}
+          <div className="card-static p-5 mb-4 animate-subtle-float">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-lg bg-accent-muted flex items-center justify-center">
+                <Monitor size={16} className="text-accent-light" />
+              </div>
+              <div>
+                <div className="text-sm font-medium">Website Performance</div>
+                <div className="text-xs text-foreground-subtle">Lighthouse Score</div>
+              </div>
+            </div>
+            <div className="flex items-end gap-1">
+              <span className="text-2xl font-bold text-success" style={{ fontFamily: "var(--font-manrope)" }}>98</span>
+              <span className="text-xs text-foreground-subtle mb-1">/100</span>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="card-static p-5 ml-12 mb-4 animate-subtle-float" style={{ animationDelay: "2s" }}>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-lg bg-accent-muted flex items-center justify-center">
+                <Smartphone size={16} className="text-accent-light" />
+              </div>
+              <div>
+                <div className="text-sm font-medium">Responsive Design</div>
+                <div className="text-xs text-foreground-subtle">All Devices</div>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {["Desktop", "Tablet", "Mobile"].map((d) => (
+                <span key={d} className="text-[10px] px-2 py-0.5 rounded-full bg-surface-light text-foreground-muted">{d}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="card-static p-5 animate-subtle-float" style={{ animationDelay: "4s" }}>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-lg bg-accent-muted flex items-center justify-center">
+                <BarChart3 size={16} className="text-accent-light" />
+              </div>
+              <div>
+                <div className="text-sm font-medium">Conversion Rate</div>
+                <div className="text-xs text-foreground-subtle">Last 30 days</div>
+              </div>
+            </div>
+            <div className="flex items-end gap-1">
+              <span className="text-2xl font-bold text-accent-light" style={{ fontFamily: "var(--font-manrope)" }}>+42%</span>
+              <span className="text-xs text-success mb-1">↑ growth</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
 }

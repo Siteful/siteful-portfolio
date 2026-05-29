@@ -14,104 +14,82 @@ import {
 
 const services = [
   {
-    icon: <Globe size={26} />,
+    icon: <Globe size={20} />,
     title: "Landing Page Development",
-    desc: "High-converting landing pages with stunning visuals and optimized performance to capture leads and drive action.",
-    gradient: "from-blue-500 to-indigo-500",
+    desc: "High-converting landing pages designed to capture leads, communicate value, and drive action.",
   },
   {
-    icon: <Building2 size={26} />,
+    icon: <Building2 size={20} />,
     title: "Company Profile Website",
-    desc: "Professional corporate websites that establish credibility, communicate your brand story, and attract potential clients.",
-    gradient: "from-indigo-500 to-violet-500",
+    desc: "Professional corporate sites that establish credibility and tell your brand story effectively.",
   },
   {
-    icon: <LayoutDashboard size={26} />,
+    icon: <LayoutDashboard size={20} />,
     title: "Dashboard System",
-    desc: "Custom admin dashboards and data visualization panels with intuitive interfaces for streamlined business operations.",
-    gradient: "from-violet-500 to-purple-500",
+    desc: "Custom admin panels and data dashboards with intuitive interfaces for streamlined operations.",
   },
   {
-    icon: <Palette size={26} />,
-    title: "UI/UX Design",
-    desc: "User-centered design with beautiful interfaces, smooth interactions, and thoughtful user journeys from wireframe to prototype.",
-    gradient: "from-purple-500 to-pink-500",
-  },
-  {
-    icon: <Wrench size={26} />,
-    title: "Website Maintenance",
-    desc: "Ongoing technical support, security updates, performance monitoring, and content management to keep your site running perfectly.",
-    gradient: "from-pink-500 to-rose-500",
-  },
-  {
-    icon: <Cloud size={26} />,
-    title: "Hosting & Deployment",
-    desc: "Fast, secure, and reliable hosting solutions with automated deployment pipelines and 99.9% uptime guarantee.",
-    gradient: "from-cyan-500 to-blue-500",
-  },
-  {
-    icon: <Database size={26} />,
+    icon: <Database size={20} />,
     title: "Backend Development",
-    desc: "Scalable server-side solutions with robust APIs, database architecture, and third-party integrations for your applications.",
-    gradient: "from-emerald-500 to-cyan-500",
+    desc: "Scalable server-side solutions with robust APIs, database architecture, and integrations.",
+  },
+  {
+    icon: <Wrench size={20} />,
+    title: "Website Maintenance",
+    desc: "Ongoing support including updates, performance monitoring, security patches, and content management.",
+  },
+  {
+    icon: <Cloud size={20} />,
+    title: "Hosting & Deployment",
+    desc: "Fast, secure hosting with CI/CD pipelines, SSL, and 99.9% uptime guarantee.",
+  },
+  {
+    icon: <Palette size={20} />,
+    title: "UI/UX Design",
+    desc: "User-centered design from wireframe to high-fidelity prototype with smooth, intuitive interactions.",
   },
 ];
 
 export default function ServicesSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section
-      id="services"
-      className="section-padding relative overflow-hidden"
-    >
-      <div className="orb orb-1" style={{ opacity: 0.4 }} />
-
-      <div className="max-w-7xl mx-auto px-6" ref={ref}>
+    <section id="services" className="section-padding relative">
+      <div className="max-w-6xl mx-auto px-6" ref={ref}>
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-14"
         >
-          <span className="text-accent-violet text-sm font-semibold tracking-widest uppercase">
-            Our Services
+          <span className="text-accent text-xs font-semibold tracking-widest uppercase">
+            Services
           </span>
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-3 mb-5"
-            style={{ fontFamily: "var(--font-manrope)" }}
-          >
-            What We <span className="gradient-text">Offer</span>
+          <h2 className="text-3xl sm:text-4xl font-bold mt-3 mb-4" style={{ fontFamily: "var(--font-manrope)" }}>
+            What We <span className="text-gradient">Offer</span>
           </h2>
-          <p className="text-foreground-muted max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-            Comprehensive web solutions tailored to your business needs — from
-            design and development to deployment and maintenance.
+          <p className="text-foreground-muted max-w-xl mx-auto text-base leading-relaxed">
+            End-to-end web solutions — from design and development to deployment
+            and ongoing support.
           </p>
         </motion.div>
 
-        {/* Service cards grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((service, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.08 * (i + 1) }}
-              className={`glass-card glass-card-hover p-7 group ${
-                i === 6 ? "sm:col-span-2 lg:col-span-1" : ""
-              }`}
+              transition={{ duration: 0.4, delay: 0.06 * (i + 1) }}
+              className={`card p-7 group ${i === 6 ? "sm:col-span-2 lg:col-span-1" : ""}`}
             >
-              <div
-                className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white mb-5 group-hover:scale-110 transition-transform duration-300`}
-              >
+              <div className="w-10 h-10 rounded-lg bg-accent-muted flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 transition-colors duration-300">
                 {service.icon}
               </div>
-              <h3
-                className="text-lg font-bold mb-2"
-                style={{ fontFamily: "var(--font-manrope)" }}
-              >
+              <h3 className="text-base font-bold mb-2" style={{ fontFamily: "var(--font-manrope)" }}>
                 {service.title}
               </h3>
               <p className="text-foreground-muted text-sm leading-relaxed">
